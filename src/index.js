@@ -1,14 +1,15 @@
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
-const BmiCalculator = () => {
+const BmiCalculator = ({ user }) => {
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
   const [bmi, setBmi] = useState(null);
 
   const calculateBMI = () => {
     if (weight && height) {
-      const heightInMeters = parseFloat(height) / 100; // cm to m
+      const heightInMeters = parseFloat(height) / 100;
       const bmiValue = parseFloat(weight) / (heightInMeters * heightInMeters);
       setBmi(bmiValue.toFixed(2));
     } else {
@@ -18,8 +19,12 @@ const BmiCalculator = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.emailText}>
+        Logged in as: {user?.email}
+      </Text>
+
       <Text style={styles.heading}>BMI Calculator</Text>
-      
+
       <TextInput
         style={styles.input}
         placeholder="Weight (kg)"
@@ -58,6 +63,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+  },
+  emailText: {
+    fontSize: 16,
+    color: '#555',
+    marginBottom: 10,
+    position: 'absolute',
+    top: 40,
+    left: 20,
   },
   heading: {
     fontSize: 28,
